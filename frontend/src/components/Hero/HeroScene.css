@@ -1,0 +1,146 @@
+/* ── Hero Scene Container ─────────────────────────────────────────── */
+.hero-scene {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  background: radial-gradient(
+    ellipse 80% 80% at 50% 50%,
+    rgba(14, 60, 120, 0.13) 0%,
+    rgba(3, 7, 18, 0.0)    70%
+  );
+  border: 1px solid rgba(30, 82, 160, 0.18);
+  box-shadow:
+    0 0 0 1px rgba(14, 82, 200, 0.06),
+    0 0 80px rgba(14, 60, 160, 0.10),
+    inset 0 0 100px rgba(0, 0, 0, 0.25);
+}
+
+/* Canvas: pointer-events none so browser scroll is never blocked */
+.hero-scene canvas {
+  width: 100%  !important;
+  height: 100% !important;
+  pointer-events: none !important;
+}
+
+/* ── Outer glow ring ─────────────────────────────────────────────── */
+.hero-scene__glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow:
+    0 0 60px 20px rgba(14, 100, 200, 0.07),
+    0 0 120px 40px rgba(100, 60, 220, 0.05);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Floating tag labels ─────────────────────────────────────────── */
+.hero-scene__tags {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.hero-scene__tag {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: rgba(148, 163, 184, 0.88);
+  background: rgba(8, 16, 38, 0.72);
+  border: 1px solid rgba(30, 90, 180, 0.28);
+  padding: 5px 11px;
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  white-space: nowrap;
+  animation: float-tag 4s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hero-scene__tag-dot {
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 6px #22d3ee80;
+}
+
+@keyframes float-tag {
+  0%, 100% { transform: translateY(0px);  }
+  50%       { transform: translateY(-7px); }
+}
+
+/* ── Live badge ──────────────────────────────────────────────────── */
+.hero-scene__label {
+  position: absolute;
+  bottom: var(--space-lg);
+  right: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  background: rgba(3, 7, 18, 0.70);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 4;
+  pointer-events: none;
+}
+
+.hero-scene__dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1;   transform: scale(1);    }
+  50%       { opacity: 0.5; transform: scale(0.75); }
+}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero-scene { height: 340px; }
+
+  .hero-scene__tag { font-size: 9.5px; padding: 4px 9px; }
+
+  .hero-scene__glow {
+    width: 240px;
+    height: 240px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Hide some tags on very small screens to reduce clutter */
+  .hero-scene__tag:nth-child(n+5) { display: none; }
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-scene__tag  { animation: none; }
+  .hero-scene__dot  { animation: none; }
+}

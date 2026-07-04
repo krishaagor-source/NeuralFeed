@@ -1,0 +1,16 @@
+# ── Web framework ──────────────────────────────────────────────────
+fastapi==0.139.0
+uvicorn==0.50.0
+pydantic==2.13.4
+
+# ── RSS / Feed parsing ─────────────────────────────────────────────
+feedparser==6.0.12
+beautifulsoup4==4.15.0
+requests==2.34.2
+
+# ── HTTP utilities ─────────────────────────────────────────────────
+httpx==0.28.1
+certifi==2026.6.17
+charset-normalizer==3.4.7
+idna==3.18
+urllib3==2.7.0
